@@ -6,115 +6,160 @@
 
 [![Discord](https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/4yB8URK9s)
 
-[📥 Install](#-installation) • [💿 Orbit AR ROM](#-orbit-ar-rom) • [✨ Key Features](#-features) • [🎮 Controls](#-controls-cheat-sheet) • [💬 Join Discord](https://discord.gg/4yB8URK9s)
+[Install](#installing) • [Features](#what-it-does) • [The bars](#the-two-bars) • [Controls](#controls) • [Discord](https://discord.gg/4yB8URK9s)
 
 ---
 
 </div>
 
-> ⚠️ **Personal Use Disclaimer**  
-> This build and its custom modifications are provided strictly for **personal use**. Anyone who chooses to install, run, or modify this release does so entirely **at their own risk and under their own responsibility**.
+> **Personal use**
+> This build and its modifications are for personal use. Anyone who installs, runs or modifies it
+> does so at their own risk and on their own responsibility.
 
 ---
 
-## 🚀 What is Orbit?
+## What Orbit is
 
-**Orbit** replaces INMO's closed, jittery stock "MultiSpace" with a powerful, high-performance GL composited spatial environment that **you control**. Live Android applications float seamlessly as multi-window quads anchored in 3D space around you with sub-pixel precision and ultra-low latency head tracking.
+Orbit replaces the launcher on the INMO Air3 with a spatial shell. Apps open as windows placed
+around you in the room, and your head aims the cursor. Everything else about the glasses stays as it
+was — the same apps, the same Play Store, the same keyboard.
 
-Whether you're multi-tasking with multiple apps floating in your field of view or switching to native ultra-low-power 2D mode on the go, Orbit turns your **INMO Air3 (IMA301)** into a true spatial workstation.
+It comes as a system update. Install it and the glasses start in Orbit.
 
 ---
 
-## 🧭 Two ways to run Orbit
+## What it does
 
-| | **Orbit APK** | **Orbit AR ROM** |
+### Apps as windows
+
+Each app runs on its own private display and is composited into a scene you look around. Open
+several, put them where you want them, and they stay there while you turn your head. A window can be
+moved, resized, maximised, fixed in place, or left where the shell arranges it. Windows you are not
+using are stopped and frozen, so a background app costs nothing while its content stays exactly as
+you left it, and the compositor only redraws when something actually moves.
+
+### Three tracking modes
+
+The mode button on the top bar cycles them, and the choice sticks across reboots.
+
+| Mode | What it does | When to use it |
 | :--- | :--- | :--- |
-| What it is | The spatial shell, installed on your existing system | A full custom ROM with the shell built in |
-| Install | `adb install` | Signed A/B OTA, applied on-device |
-| Bootloader | Any | See the table below |
-| Reversible | Uninstall it | Reflash stock |
-| Gets you | The launcher and camera | …plus debloat, the CPU-floor fix, patched framework, Orbit boot animation and an updater |
+| 2D | The space is welded to the display and the sensor is off. Apps run as ordinary fullscreen tasks with the real panel and real touch. | Walking, travelling, saving battery |
+| 3D | Windows are anchored to the room and follow yaw and pitch, with the horizon held level. | Everyday use |
+| 6D | As 3D, and the horizon tilts with your head. | Lying down, or when you want the space truly world-locked |
 
-**New here? Start with the APK.** It is the whole spatial experience with nothing to undo. The ROM
-is for people who want the rest of the system cleaned up too.
+### Aiming and clicking
 
----
+Your head moves the cursor; the temple touchpad or the INMO ring clicks. The pose is extrapolated to
+the moment the frame is actually shown, so the scene does not lag behind your head, and a still
+window is snapped to the pixel grid so text stays sharp.
 
-## ✨ Features
+A Samsung Gear VR controller works as a pointer if you have one. Android cannot drive this
+controller at all — it carries its HID characteristics under a non-standard GATT service, so the
+platform never turns it into an input device — so Orbit talks to it directly. The touchpad moves the
+cursor, the trigger clicks and drags, pressing the pad in is a long press, and Back, Home and Volume
+do what they say. The link drops when the display sleeps.
 
-### 🪐 Dual Spatial Modes
-* **Orbit Desktop (`SpacesActivity`)**: A full 3D spatial multi-window environment. Applications run in isolated VirtualDisplays, composited into floating 3D windows around your head.
-* **Orbit Grid (`MainActivity`)**: A sleek, flat spatial launcher that opens apps with native 2D display performance and zero composition overhead.
+One limitation is the controller's own: its firmware delivers samples in bursts every ~90 ms rather
+than evenly, and it ignores requests to change that. Orbit replays each burst at display rate so
+movement stays smooth, but the latency the controller imposes cannot be removed.
 
-### 🕶️ Advanced Head Tracking (2D / 3D / 6D)
-Tailor tracking to your environment straight from the bottom control bar (⚙):
-| Mode | How it Works | Best Used For |
-| :--- | :--- | :--- |
-| **2D** | Windows welded to display. Sensor disabled completely. | Walking, moving vehicles, max battery saving |
-| **3D** *(Default)* | Yaw + Pitch tracking with a locked horizon. | Everyday spatial multi-tasking with zero roll-noise |
-| **6D** | Full 6-DoF orientation (Yaw + Pitch + Roll). | Lying down or absolute world-locking |
+### Camera
 
-### ⚡ Sub-Pixel Precision & Zero Vibration
-* **Draw-Time Pose Extrapolation**: Eliminates motion swim by predicting head pose to exact display scanout timing.
-* **Micro-Velocity Ring Buffering**: Smooths out timestamp jitter and eliminates screen shaking.
-* **Pixel Snapping**: Locks static windows to physical screen pixels for crystal-clear text readability.
+A camera that uses the whole sensor ships with the system and becomes the default, including for the
+hardware camera key.
 
-### 🧊 Ice Cold Thermal & Battery Efficiency
-Orbit fixes the severe thermal throttling and battery drain of stock launcher software:
-* **Background App Freeze**: Background windows are automatically stopped (`STATE_OFF`) and process-frozen via cgroup freezer (0% CPU usage for inactive windows while preserving app state).
-* **On-Demand GL Rendering**: Compositor and drawer only repaint when movement or input occurs, dropping idle `SurfaceFlinger` CPU load from **54% down to ~7%** and keeping skin temperatures under **47°C** (no throttling!).
-* **Smart Wear-Sensing Timeout**: Detects when glasses are taken off to allow full SoC deep sleep.
+- 16 MP stills (4608×3456). The camera HAL hides its full-size modes behind an API ordinary camera
+  apps never call.
+- 4K 30 fps video, with a one-tap switch to FHD pinned at 30 fps.
+- Aspect control for stills, and HDR through the sensor's bracketed-exposure mode.
 
-### 🎛️ Unified Floating Control Bar
-A single, intelligent, auto-hiding bar along the bottom of your field of view puts total control at your fingertips:
-* **App Switcher & Quick Drawer**: Instant single-tap switching between running apps.
-* **Head-Grab (`✥`)**: Locks a window to your gaze direction—move your head to reposition windows effortlessly.
-* **Head-Lock (`🔒`)**: Pins specific windows to your gaze frame of reference.
-* **Recenter (`⌖`)**: One-tap spatial recentering of your workspace.
-* **Window Controls**: Resize (`−`/`+`), Maximise (`⛶`), Back (`←`), and Close (`✕`).
+Three hardware ceilings, measured on the device rather than assumed: there is no 60 fps at any
+resolution, video cannot exceed 4096×2160 on this SoC's encoders, and HDR is stills-only.
 
-### 🎮 Samsung Gear VR Controller Support
-Orbit drives the Gear VR controller as a full pointer — **the platform cannot do this itself.** The controller carries its HID characteristics under a non-standard GATT service (`0x1879`, not `0x1812`), so Android's `HidHostService` walks straight past it, creates no `uhid` node, and never makes an input device out of it. Orbit talks to it directly over GATT and turns it into a cursor.
+### AR capture
 
-* **Touchpad as a trackpad** — thumb movement moves the cursor, with no drift and no calibration.
-* **Trigger** = left click and drag · **Pad click** = long press (context menu) · **Back / Home / Volume** work as labelled.
-* **Screen-off aware** — the link is dropped when the display sleeps, so a connected controller can't hold the SoC out of suspend.
-* **Toggle in Settings → System** — off if you don't own one.
+Photograph or record what you are actually seeing — the camera's view of the room with the space
+composited over it, the way it looks from inside the glasses.
 
-> ⚠️ **Known limitation:** the controller's firmware uses BLE *slave latency*, delivering ~6 samples in a burst every ~90 ms rather than evenly at 66 Hz. This is not configurable from the host — connection-parameter updates are accepted and then ignored by the device. Orbit replays each burst at display rate so movement stays continuous, but roughly 45–90 ms of input latency is imposed by the controller itself and cannot be removed.
+### A PC as a window
 
-### 📸 Orbit Camera — 16MP Stills & 4K Video
-Ships with **Orbit Camera**, a purpose-built CameraX camera that unlocks the sensor's full modes. Installed automatically alongside the launcher; the stock INMO camera is replaced and Orbit Camera becomes the system default. **Open Camera is kept installed as a secondary/fallback.**
+Point Settings → Display → Remote display at a machine running Remote Desktop and it opens as a
+window in the space, drawn at the window's own resolution.
 
-* **16 MP stills** (4608×3456) — this HAL hides its full-size modes behind `getHighResolutionOutputSizes()`, which ordinary camera apps never call.
-* **4K 30 fps video** (3840×2160), with a one-tap **4K ⇄ FHD** switch. FHD is pinned to a constant 30 fps so exposure can't trade frame rate for light.
-* **Aspect control** for stills — 4:3 (full sensor, all 15.9 MP), 16:9, 1:1.
-* **HDR stills** via the sensor's bracketed-exposure scene mode.
-* **Portrait UI** sized to the actual capture area — the camera is mounted rotated 90°, so an upright frame is portrait.
+The glasses can also advertise themselves as a wireless display (Miracast), so a phone or PC can
+send a screen to them. That is off by default and lives in Settings → Orbit.
 
-> **Hardware ceilings, measured on the device — these are not settings:**
-> * **No 60 fps at any resolution.** The sensor advertises `[10,10] [10,15] [15,15] [24,24] [10,30] [30,30]` and publishes no high-speed video configurations at all.
-> * **Video cannot exceed 4096×2160 (8.85 MP).** Both the H.264 and HEVC encoders are capped there, so 16 MP video is impossible on this SoC at any setting.
-> * **No HDR video.** `DYNAMIC_RANGE_TEN_BIT` is absent from the camera's capabilities; HDR is stills-only.
+### Updates
 
-### 🖥️ Remote Desktop & Wireless Display
-* **Built-in RDP client** (FreeRDP 3.x, arm64) — use a PC desktop as a window inside your space. Off by default; enable in **Settings → System → Remote Desktop**.
-* **Miracast sink** — receive a wireless display from Windows.
-
-### 🛠️ Developer & Power Features
-* **Fixed Wireless ADB**: Auto-enables ADB on a **fixed port (`5555`)** across reboots, instead of the random port wireless debugging negotiates each session.
-* **Automatic MTP Storage**: Keeps USB file transfer alive when plugged into a PC — and verifies something is actually *serving* MTP, not merely that the gadget advertises it.
-* **CPU Governor Optimizer**: Removes INMO's frequency clamp, which pins min *and* max to the same value, so the CPU can scale across its full **691 MHz – 1.8 GHz** range instead of being stuck.
-* **Stray App Recovery** *(new in 0.2.0)*: Apps started outside Orbit — via ADB, a notification, or an intent chooser — become ordinary tasks the shell has never heard of and vanish from the launcher. Orbit now finds them and adopts them into the space, keeping their state.
-* **No Root Required**: Signed with the platform certificate for full framework permission access out of the box.
+A System Update app checks for new Orbit builds and installs them the way an Android update installs.
 
 ---
 
-## 🖼️ Screenshots
+## The two bars
+
+Both bars rest as a single hairline along their own edge. Point at that edge and the bar opens; look
+away and it closes. Neither spans the display.
+
+They are split by what a control acts on: the top bar acts on the device, the bottom bar acts on the
+window you are focused on.
+
+### Top bar
+
+Nothing here depends on which window has focus, so it never greys out and never changes shape.
+
+| Control | What it opens |
+| :--- | :--- |
+| Apps | The app drawer: everything installed, as a grid you look across |
+| Running apps | What is open, each with a preview and an X. Clear all closes everything, and asks first |
+| Mode | 2D, 3D or 6D |
+| Notifications | Your notifications, read by Orbit itself. A media notification becomes a player with real transport controls |
+| Control centre | Below |
+| Clock and date | The calendar |
+
+Wi-Fi, temperature and battery sit beside them as readouts.
+
+The first four are **panels**: hover the button and the panel slides out from under the bar and docks
+to it, sharing its edges. Move the pointer somewhere else and it closes again. Press instead of
+hover and it stays until you dismiss it.
+
+### Control centre
+
+Volume and brightness as full-height columns, a player for whatever is playing, and tiles for AR
+photo, AR video, screenshot, screen recording, camera, adaptive brightness, silent, do not disturb,
+system settings and shutdown. CPU frequencies, CPU and GPU temperature and memory use run along the
+bottom.
+
+### Bottom bar
+
+Recenter the view, fix the window in place, maximise it, make it smaller or bigger, go back, close
+it, and step to the previous or next window. These all dim together when nothing is focused, because
+none of them mean anything then.
+
+### Per-window bar
+
+Every window carries its own hairline along its top edge. Hover it and it opens with the app's name
+and its own controls, so a window can be moved, resized or closed without going to the bottom bar.
+
+---
+
+## Settings
+
+Orbit's settings live in the system Settings app rather than in a floating panel, so they are where
+you would look for them and they appear in Settings search.
+
+- **Settings → Orbit** — keep windows in colour, and the wireless display switch
+- **Settings → Display → Display correction** — the field of view and projection fit for this panel
+- **Settings → Display → Remote display** — the PC to connect to
+- **Settings → Accessibility → Gear VR controller** — pair and enable one
+
+---
+
+## Screenshots
 
 <div align="center">
 
-| 3D Spatial Workspace | App Launcher Grid | Control centre |
+| Spatial workspace | App drawer | Control centre |
 | :---: | :---: | :---: |
 | ![Spatial Desktop](screenshot.png) | ![App Grid](screenshot2.png) | ![Controls](screenshot1.png) |
 
@@ -122,135 +167,100 @@ Ships with **Orbit Camera**, a purpose-built CameraX camera that unlocks the sen
 
 ---
 
-## 📥 Installation
+## Installing
 
-### Option A — the APK, on your existing system
-Grab the latest APK from the [Releases Page](../../releases) or build from source:
+There is one package, and it installs on a locked or an unlocked bootloader. Verified boot stays on.
+
+If the glasses are still on stock, install the updater once:
 
 ```bash
-# Install via ADB
-adb install -r -g Orbit.apk
-
-# (Optional, ROOT ONLY) Bypass INMO's first-launch disclaimer.
-# Orbit itself needs no root — this one convenience step does.
-adb shell su -c 'cmd app_launch_guard add com.j4ckgrey.orbit'
-
-# Launch Orbit Spatial Desktop
-adb shell am start -n com.j4ckgrey.orbit/.SpacesActivity
+adb install -r OrbitUpdater.apk
 ```
 
-### Option B — the full ROM
-See [Orbit AR ROM](#-orbit-ar-rom) below. Install `OrbitUpdater.apk` from the
-[Releases Page](../../releases) and let it pick the right package for your device.
+Then open **System Update**, check for updates, and let it install. After that, every later version
+arrives through the same app and there is nothing to install by hand again.
 
----
+Nothing is written to the system you are running. The update goes to the slot the device is not
+currently using, and if that slot fails to start the bootloader returns to the old one by itself.
+A failure at any stage — download, checksum or write — leaves you where you were.
 
-## 💿 Orbit AR ROM
+Worth knowing before you start:
 
-A complete, **signed A/B OTA** built from INMO's official V3.17.012 firmware. It installs the way
-an official update does — `update_engine` verifies the payload signature, writes the **inactive
-slot**, and the bootloader falls back on its own if the new build does not start.
+- Your data is untouched. Accounts, the apps you installed and your settings all stay. An app you
+  had updated from the Play Store keeps the version you updated to.
+- The automatic rollback lasts until the new build has booted successfully and the snapshots merge.
+  After that, going back means flashing stock again — so if it is not for you, decide early.
+- If your device is rooted, the update replaces the boot image and root goes with it.
 
-### Which package?
-
-Two are published with every release. **They are one build**; the ext4 filesystems are byte-identical.
-
-| Package | Bootloader | Root | dm-verity |
-| :--- | :--- | :--- | :--- |
-| **`Orbit_AR_V<ver>_noRoot.zip`** | **locked or unlocked** | no | **on**, AVB chain re-signed |
-| **`Orbit_AR_V<ver>_magisk.zip`** | unlocked only | yes, Magisk | off |
-
-**Take `noRoot` unless you specifically want root.** It runs everywhere and leaves verified boot
-intact. `magisk` keeps root and leaves `/system` writable, and needs an unlocked bootloader.
-
-> ⚠️ **You do not have to choose by hand.** The built-in updater reads the bootloader state and
-> downloads the package your device can actually boot. Picking wrong is not a visible error —
-> `update_engine` installs either package on either device, and the wrong one only shows up as a
-> failed boot and a rollback. If the state cannot be read it serves `noRoot`, which boots on both.
-
-### Installing
-
-1. **`adb install -r OrbitUpdater.apk`** — on a stock device it isn't there yet.
-2. Open **System Update** → **Check for updates** → install.
-3. Reboot when it asks.
-
-The update URL is already compiled in; there is nothing to configure. Downloads resume if
-interrupted, and the package is checked against its SHA-256 before anything is written.
-
-### Is it safe?
-
-* Nothing is written to the running system. The new build goes to the **inactive slot**.
-* A failure at any stage — download, checksum, or write — aborts and leaves you exactly where you were.
-* ⚠️ That automatic rollback lasts until the Virtual A/B snapshots **merge**, shortly after the new
-  build boots successfully. After that, going back means reflashing. So if you don't like it, say so early.
-
-### Verifying a download
-
-Every release ships `SHA256SUMS`. Check before installing:
+Every release ships checksums, if you would like to check the download first:
 
 ```bash
 sha256sum -c SHA256SUMS
 ```
 
-### What the ROM changes
+---
 
-**Added** — Orbit shell, Orbit Camera, Open Camera (fallback), Orbit Control Center, Orbit Updater,
-the patched framework (display fit/shift, no third-party disclaimer, CPU clamp removed) and the
-Orbit boot animation.
+## What the system includes
 
-**Removed** — INMO launcher, mini launcher, log/telemetry service, Nexus Console, stock camera,
-voice assistant and its wake-word engine, INMO's OTA client, Qualcomm QLog, Snapdragon Camera.
+**Added** — the Orbit shell, the camera, the control centre, the updater, a patched framework (the
+display fit and shift, no third-party disclaimer, INMO's CPU clamp removed) and the Orbit boot
+animation.
 
-> INMO's own OTA client is removed deliberately: left in place it can pull a stock INMO build over
-> the top of Orbit and undo all of this.
+**Removed** — INMO's launcher and mini launcher, their log service, Nexus Console, app store, book
+and gallery apps, stock camera, voice assistant and its wake-word engine, and their OTA client.
 
-**The idle CPU floor is fixed at source.** INMO's perf HAL votes a per-CPU *minimum* frequency and
-never releases it, so the last boost to fire becomes the idle floor — that is the heat, and why the
-big cluster sat at 2.2 GHz doing nothing. All 85 min-freq votes are rewritten to the hardware
-minimum. This costs no performance: a min-freq vote is a **floor, not a throttle**, and the max-freq
-resources are untouched.
+INMO's OTA client is removed deliberately: left in place it can pull a stock INMO build over the top
+of Orbit and undo all of this.
+
+Two things the build does rather than removes. Qualcomm's log capture app sits on a partition this
+build does not write, so it is disabled instead, and the system's logging is turned down from the
+several hundred lines a second it writes at idle. And the idle CPU floor is fixed at source: INMO's
+performance HAL votes a per-CPU minimum frequency and never releases it, so the last boost to fire
+became the floor and the big cluster sat at 2.2 GHz doing nothing. Those votes are rewritten to the
+hardware minimum, which costs no performance — a minimum-frequency vote is a floor, not a throttle,
+and the maximum is untouched.
 
 ---
 
-## 🎮 Controls Cheat Sheet
+## Controls
 
-| Action | How To |
+| Action | How |
 | :--- | :--- |
-| **Reveal Control Bar** | Tap or look down toward the bottom edge |
-| **Focus / Bring Window Forward** | Tap any window |
-| **Move Window** | Click `✥` (Head-Grab), move gaze, click again to drop |
-| **Recenter Workspace** | Tap `⌖` on the bottom bar |
-| **Toggle App Drawer** | Double-tap empty space or press **Back** |
-| **Scroll Inside App** | Swipe or use DPAD / Arrow keys / Scroll wheel |
-| **Close Window** | Click `✕` or hold **Back** |
-| **Move cursor** *(Gear VR)* | Swipe the controller touchpad |
-| **Click / drag** *(Gear VR)* | Trigger |
-| **Context menu** *(Gear VR)* | Press the touchpad in |
-| **Back / Home / Volume** *(Gear VR)* | The buttons of the same name |
+| Show a bar | Look toward the top or bottom edge |
+| Focus a window | Tap it |
+| Move a window | Drag its own bar, or use the bottom bar |
+| Recenter the space | The recenter button, on either bar |
+| Open the app drawer | Home, or double-tap empty space |
+| Scroll inside an app | Swipe, or the arrow keys |
+| Close a window | The X on its bar |
+| Move the cursor (Gear VR) | Swipe the touchpad |
+| Click and drag (Gear VR) | Trigger |
+| Long press (Gear VR) | Press the touchpad in |
 
 ---
 
-## 📋 Requirements
+## Requirements
 
-* **INMO Air3 (IMA301)** — Orbit is built against this device's panel, optics and sensors.
-* **Platform-signed build** for full functionality. A release-signed APK still runs, but silently loses `ADD_TRUSTED_DISPLAY` (the IME can no longer render inside a window), `INJECT_EVENTS` (touch falls back to a slow shell path), `FORCE_STOP_PACKAGES` and auto-granted `SYSTEM_ALERT_WINDOW`.
-* **No root required** for the APK.
-* **For the ROM:** base firmware **V3.17.012**.
+- INMO Air3 (IMA301). Orbit is built against this device's panel, optics and sensors.
+- Base firmware V3.17.012.
+- No root, and no unlocked bootloader.
 
 ---
 
-## 💬 Community & Support
+## Community
 
-Our community is growing fast! Whether you have feature requests, feedback, bug reports, or just want to showcase your INMO Air3 setup, join us on Discord!
+Feature requests, feedback, bug reports, or just showing what you have set up — all welcome.
 
 <div align="center">
 
-### 🗣️ [Join the Orbit Discord Community](https://discord.gg/4yB8URK9s)
+### [Join the Orbit Discord](https://discord.gg/4yB8URK9s)
 
-*🐞 **Found a bug?** Open an issue on GitHub or drop a line in `#bug-reports` on Discord!*
+Found a bug? Open an issue on GitHub, or post in `#bug-reports` on Discord.
 
 ---
 
 </div>
-If you like what I do, consider supporting future development https://ko-fi.com/j4ckgrey
+
+If you would like to support further development: https://ko-fi.com/j4ckgrey
+
 <img width="1200" height="600" alt="image" src="https://github.com/user-attachments/assets/1e1ef242-3cbf-4900-b035-33bcda376f02" />
