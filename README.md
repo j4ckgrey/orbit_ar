@@ -114,7 +114,7 @@ Ships with **Orbit Camera**, a purpose-built CameraX camera that unlocks the sen
 
 <div align="center">
 
-| 3D Spatial Workspace | App Launcher Grid | Settings |
+| 3D Spatial Workspace | App Launcher Grid | Control centre |
 | :---: | :---: | :---: |
 | ![Spatial Desktop](screenshot.png) | ![App Grid](screenshot2.png) | ![Controls](screenshot1.png) |
 
