@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Orbit Banner](screenshots/banner.png)
+![Orbit Banner](orbit.png)
 
 [![Discord](https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/4yB8URK9s)
 
