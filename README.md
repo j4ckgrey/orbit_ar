@@ -1,8 +1,24 @@
-# Orbit AR for INMO Air3
-
 <div align="center">
 
+<table>
+<tr>
+<td width="50%" align="center" valign="middle">
+
+# Orbit AR for INMO Air3
+
 ![Orbit Banner](orbit.png)
+
+</td>
+<td width="50%" align="center" valign="middle">
+
+[![Support](https://github.com/user-attachments/assets/1e1ef242-3cbf-4900-b035-33bcda376f02)](https://ko-fi.com/j4ckgrey)
+
+If you would like to support further development:  
+**[Support on Ko-fi](https://ko-fi.com/j4ckgrey)**
+
+</td>
+</tr>
+</table>
 
 [![Discord](https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/4yB8URK9s)
 
@@ -175,92 +191,3 @@ If the glasses are still on stock, install the updater once:
 
 ```bash
 adb install -r OrbitUpdater.apk
-```
-
-Then open **System Update**, check for updates, and let it install. After that, every later version
-arrives through the same app and there is nothing to install by hand again.
-
-Nothing is written to the system you are running. The update goes to the slot the device is not
-currently using, and if that slot fails to start the bootloader returns to the old one by itself.
-A failure at any stage — download, checksum or write — leaves you where you were.
-
-Worth knowing before you start:
-
-- Your data is untouched. Accounts, the apps you installed and your settings all stay. An app you
-  had updated from the Play Store keeps the version you updated to.
-- The automatic rollback lasts until the new build has booted successfully and the snapshots merge.
-  After that, going back means flashing stock again — so if it is not for you, decide early.
-- If your device is rooted, the update replaces the boot image and root goes with it.
-
-Every release ships checksums, if you would like to check the download first:
-
-```bash
-sha256sum -c SHA256SUMS
-```
-
----
-
-## What the system includes
-
-**Added** — the Orbit shell, the camera, the control centre, the updater, a patched framework (the
-display fit and shift, no third-party disclaimer, INMO's CPU clamp removed) and the Orbit boot
-animation.
-
-**Removed** — INMO's launcher and mini launcher, their log service, Nexus Console, app store, book
-and gallery apps, stock camera, voice assistant and its wake-word engine, and their OTA client.
-
-INMO's OTA client is removed deliberately: left in place it can pull a stock INMO build over the top
-of Orbit and undo all of this.
-
-Two things the build does rather than removes. Qualcomm's log capture app sits on a partition this
-build does not write, so it is disabled instead, and the system's logging is turned down from the
-several hundred lines a second it writes at idle. And the idle CPU floor is fixed at source: INMO's
-performance HAL votes a per-CPU minimum frequency and never releases it, so the last boost to fire
-became the floor and the big cluster sat at 2.2 GHz doing nothing. Those votes are rewritten to the
-hardware minimum, which costs no performance — a minimum-frequency vote is a floor, not a throttle,
-and the maximum is untouched.
-
----
-
-## Controls
-
-| Action | How |
-| :--- | :--- |
-| Show a bar | Look toward the top or bottom edge |
-| Focus a window | Tap it |
-| Move a window | Drag its own bar, or use the bottom bar |
-| Recenter the space | The recenter button, on either bar |
-| Open the app drawer | Home, or double-tap empty space |
-| Scroll inside an app | Swipe, or the arrow keys |
-| Close a window | The X on its bar |
-| Move the cursor (Gear VR) | Swipe the touchpad |
-| Click and drag (Gear VR) | Trigger |
-| Long press (Gear VR) | Press the touchpad in |
-
----
-
-## Requirements
-
-- INMO Air3 (IMA301). Orbit is built against this device's panel, optics and sensors.
-- Base firmware V3.17.012.
-- No root, and no unlocked bootloader.
-
----
-
-## Community
-
-Feature requests, feedback, bug reports, or just showing what you have set up — all welcome.
-
-<div align="center">
-
-### [Join the Orbit Discord](https://discord.gg/4yB8URK9s)
-
-Found a bug? Open an issue on GitHub, or post in `#bug-reports` on Discord.
-
----
-
-</div>
-
-If you would like to support further development: https://ko-fi.com/j4ckgrey
-
-<img width="1200" height="600" alt="image" src="https://github.com/user-attachments/assets/1e1ef242-3cbf-4900-b035-33bcda376f02" />
