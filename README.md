@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://discord.gg/4yB8URK9s">
+<a href="https://discord.gg/CSDJRmvc6">
   <img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white" width="100%" alt="Discord">
 </a>
 
