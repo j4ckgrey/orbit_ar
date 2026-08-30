@@ -1,26 +1,24 @@
 <div align="center">
 
-<a href="https://discord.gg/CSDJRmvc6">
-  <img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white" width="100%" alt="Discord">
-</a>
+<p align="center">
+  <span style="display: inline-block; vertical-align: middle; width: 48%; text-align: left;">
+    <a href="https://discord.gg/CSDJRmvc6">
+      <img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
+    </a>
+  </span>
+  <span style="display: inline-block; vertical-align: middle; width: 48%; text-align: right;">
+    <a href="https://ko-fi.com/M4M61OKJDA">
+      <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="ko-fi" style="vertical-align: middle;">
+    </a>
+    <br>
+    <small>If you would like to support further development: <a href="https://ko-fi.com/j4ckgrey"><strong>Support on Ko-fi</strong></a></small>
+  </span>
+</p>
 
 [Install](#installing) • [Features](#what-it-does) • [The bars](#the-two-bars) • [Controls](#controls) • [Discord](https://discord.gg/4yB8URK9s)
 
 <p align="center">
-  <span style="display: inline-block; vertical-align: middle; width: 45%; text-align: center;">
-    <img src="orbit.png" alt="Orbit Banner" width="100%">
-  </span>
-  <span style="display: inline-block; vertical-align: middle; width: 45%; text-align: center;">
-    <span style="font-size: 1.8em; font-weight: bold; display: block; margin-bottom: 20px;">
-      Orbit AR for INMO Air3
-    </span>
-    <a href="https://ko-fi.com/M4M61OKJDA">
-      <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="ko-fi">
-    </a>
-    <br><br>
-    If you would like to support further development:<br>
-    <a href="https://ko-fi.com/j4ckgrey"><strong>Support on Ko-fi</strong></a>
-  </span>
+  <img src="orbit.png" alt="Orbit Banner" width="100%">
 </p>
 
 ---
