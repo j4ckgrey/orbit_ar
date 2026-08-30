@@ -1,15 +1,18 @@
 <div align="center">
 
 <p align="center">
-  <a href="https://discord.gg/CSDJRmvc6" style="text-decoration: none;">
-    <img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white" height="36" alt="Discord" style="vertical-align: middle;">
-  </a>
-  &emsp;&emsp;
-  <a href="https://ko-fi.com/M4M61OKJDA" style="text-decoration: none;">
-    <img src="https://ko-fi.com/img/githubbutton_sm.svg" height="36" alt="ko-fi" style="vertical-align: middle;">
-  </a>
-  &nbsp;
-  <span>If you would like to support further development: <a href="https://ko-fi.com/j4ckgrey"><strong>Support on Ko-fi</strong></a></span>
+  <span style="display: inline-block; vertical-align: middle; width: 48%; text-align: left;">
+    <a href="https://discord.gg/CSDJRmvc6">
+      <img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
+    </a>
+  </span>
+  <span style="display: inline-block; vertical-align: middle; width: 48%; text-align: right;">
+    <a href="https://ko-fi.com/M4M61OKJDA">
+      <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="ko-fi" style="vertical-align: middle;">
+    </a>
+    <br>
+    <small>If you would like to support further development: <a href="https://ko-fi.com/j4ckgrey"><strong>Support on Ko-fi</strong></a></small>
+  </span>
 </p>
 
 [Install](#installing) • [Features](#what-it-does) • [The bars](#the-two-bars) • [Controls](#controls) • [Discord](https://discord.gg/4yB8URK9s)
