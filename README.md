@@ -6,25 +6,19 @@
 
 [Install](#installing) • [Features](#what-it-does) • [The bars](#the-two-bars) • [Controls](#controls) • [Discord](https://discord.gg/4yB8URK9s)
 
-<table>
-<tr>
-<td width="50%" align="center" valign="middle">
-
-# Orbit AR for INMO Air3
-
-![Orbit Banner](orbit.png)
-
-</td>
-<td width="50%" align="center" valign="middle">
-
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M61OKJDA)
-
-If you would like to support further development:  
-**[Support on Ko-fi](https://ko-fi.com/j4ckgrey)**
-
-</td>
-</tr>
-</table>
+<div style="display: flex; align-items: center; justify-content: space-around; width: 100%;">
+  <div style="width: 50%; text-align: center;">
+    <h1>Orbit AR for INMO Air3</h1>
+    <img src="orbit.png" alt="Orbit Banner">
+  </div>
+  <div style="width: 50%; text-align: center;">
+    <a href="https://ko-fi.com/M4M61OKJDA">
+      <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="ko-fi">
+    </a>
+    <p>If you would like to support further development:<br>
+    <a href="https://ko-fi.com/j4ckgrey"><strong>Support on Ko-fi</strong></a></p>
+  </div>
+</div>
 
 ---
 
