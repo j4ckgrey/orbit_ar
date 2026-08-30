@@ -17,7 +17,7 @@
 </td>
 <td width="50%" align="center" valign="middle">
 
-[![Support](https://github.com/user-attachments/assets/1e1ef242-3cbf-4900-b035-33bcda376f02)](https://ko-fi.com/j4ckgrey)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M4M61OKJDA)
 
 If you would like to support further development:  
 **[Support on Ko-fi](https://ko-fi.com/j4ckgrey)**
